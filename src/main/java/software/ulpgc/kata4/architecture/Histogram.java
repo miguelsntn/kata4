@@ -6,34 +6,44 @@ import java.util.Map;
 import java.util.Set;
 
 public class Histogram implements Iterable<Integer> {
-    private final Map<Integer, Integer> map;
-    public Histogram() {
-        this.map = new HashMap<>();
+    private final Map<Integer, Integer> bins;
+    private final Map<String, String> labels;
+
+    public Histogram(Map<String, String> labels) {
+        this.bins = new HashMap<>();
+        this.labels = labels;
     }
 
 
     public void addTo(int bin) {
-        map.put(bin, count(bin) + 1);
+        bins.put(bin, count(bin) + 1);
     }
 
 
     public int count(int bin) {
-        return map.getOrDefault(bin, 0);
+        return bins.getOrDefault(bin, 0);
     }
 
 
     public Set<Integer> bins() {
-        return map.keySet();
+        return bins.keySet();
     }
 
 
     @Override
     public Iterator<Integer> iterator() {
-        return map.keySet().iterator();
+        return bins.keySet().iterator();
     }
-
-
-    public int size() {
-        return map.size();
+    public String title() {
+        return labels.getOrDefault("title", "");
+    }
+    public String x() {
+        return labels.getOrDefault("x", "");
+    }
+    public String y() {
+        return labels.getOrDefault("y", "");
+    }
+    public String legend() {
+        return labels.getOrDefault("legend", "");
     }
 }
